@@ -11,6 +11,7 @@ output: pdf_document
 knitr::opts_chunk$set(echo = FALSE)
 # Esta segunda línea se agrega para indicar que la carpeta desde donde debe partir buscando archivos es la del proyecto R
 knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+library(dplyr)
 ```
 
 ```{r cargar-datos}
@@ -29,34 +30,34 @@ Con la función `knitr::kable(objeto_a_imprimir)`, podemos imprimir una tabla en
 Para ello hay que tener clara la posición de los resultados en el archivo tipo "lista" que se creó en el tercer código (*3-construccion-resultados.R*).
 
 ```{r tabla1}
-knitr::kable(resultados[[1]], digits = 2)
+knitr::kable(resultados[[1]], digits = 2, caption = "Descriptivos protesta")
 ```
 
-Luego se imprime el resultado 2 creado en el tercer código (*3-construccion-resultados.R*).
+Luego se imprime el resultado 2 creado en el tercer código, y así sucesivamente.
+ (*3-construccion-resultados.R*).
 
 ```{r tabla2}
-knitr::kable(resultados[[2]], digits = 2)
+knitr::kable(resultados[[2]], digits = 2, caption = "Distribución de género")
 ```
 
-Y así sucesivamente.
+```{r tabla3}
+knitr::kable(resultados[[3]][[2]], digits = 2, caption = "Nivel socioeconómico por género",
+             format = "latex", booktabs = T)
+```
+
 \newpage
 
 # Gráficos
 
 La lógica para incorporar los gráficos es la misma.
 ```{r grafico1, message=FALSE, warning=FALSE, fig.align='center', out.width='80%'}
-resultados[[3]]
+resultados[[4]]
 ```
 
-# Varios 
+También podemos agregar el mismo gráfico, pero directamente desde el archivo de imagen desde el directorio `Output`
 
-Cuestiones que quedan pendientes, que podrían mejorarse:
+![](Output/Figura1.png)
 
-1. Agregar un título para cada tabla (configuración vía *kable*).
-2. Editar los títulos de las columnas (configuración vía *kable*).
-3. Redondear valores en cada tabla (configuración vía *kable*).
-4. Lograr incorporar tablas de doble entrada que provienen de función *ctable* de *summarytools*.
-5. Eliminar *warning* de gráfico, y editar tamaño.
 
 \newpage
 # Referencias
