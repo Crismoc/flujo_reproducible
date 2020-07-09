@@ -1,0 +1,67 @@
+---
+title: "Reporte Ejemplo"
+author: "Cristóbal Moya y Felipe Ruiz"
+date: "03-07-2020"
+bibliography: bibliografia.bib
+csl: apa.csl
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+# Esta segunda línea se agrega para indicar que la carpeta desde donde debe partir buscando archivos es la del proyecto R
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+```{r cargar-datos}
+# Con este comando se carga el archivo (lista) que contiene los resultados
+resultados <- readRDS("Data/AnalysisData/resultados-reporte.rds")
+```
+
+# Introducción
+
+En este ejemplo se muestra como introducir referencias bibliográficas [@dancona_alisis_2002], así como la inclusión de resultados tipo tablas y gráficos [@hair_alisis_1999; @vivanco_analisis_1996]. 
+
+# Tablas de resultados
+
+Con la función `knitr::kable(objeto_a_imprimir)`, podemos imprimir una tabla en formato *R Markdown*.
+
+Para ello hay que tener clara la posición de los resultados en el archivo tipo "lista" que se creó en el tercer código (*3-construccion-resultados.R*).
+
+```{r tabla1}
+knitr::kable(resultados[[1]], digits = 2)
+```
+
+Luego se imprime el resultado 2 creado en el tercer código (*3-construccion-resultados.R*).
+
+```{r tabla2}
+knitr::kable(resultados[[2]], digits = 2)
+```
+
+Y así sucesivamente.
+\newpage
+
+# Gráficos
+
+La lógica para incorporar los gráficos es la misma.
+```{r grafico1, message=FALSE, warning=FALSE, fig.align='center', out.width='80%'}
+resultados[[3]]
+```
+
+# Varios 
+
+Cuestiones que quedan pendientes, que podrían mejorarse:
+
+1. Agregar un título para cada tabla (configuración vía *kable*).
+2. Editar los títulos de las columnas (configuración vía *kable*).
+3. Redondear valores en cada tabla (configuración vía *kable*).
+4. Lograr incorporar tablas de doble entrada que provienen de función *ctable* de *summarytools*.
+5. Eliminar *warning* de gráfico, y editar tamaño.
+
+\newpage
+# Referencias
+
+```{r, echo=FALSE}
+rm(list=ls())
+```
+
